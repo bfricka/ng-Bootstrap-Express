@@ -11,22 +11,19 @@ module.exports = (grunt) ->
 
   # Project configuration.
   grunt.initConfig
-    pkg: grunt.file.readJSON('package.json')
+    pkg: grunt.file.readJSON 'package.json'
 
     meta:
       # Build the JS banner based on pkg file data
       banner: do ->
-        banner = "/* <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %>"
-        banner += "\n"
-        banner += "* Copyright (c) <%= grunt.template.today('yyyy') %> <%= pkg.author %>. All rights reserved."
-        banner += "\n"
-        banner += "* Licensed <%= _.pluck(pkg.licenses, 'type')[0] %> - <%= _.pluck(pkg.licenses, 'url')[0] %> */"
-        banner += "\n"
+        banner = "/* <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %>\n"
+        banner += "* Copyright (c) <%= grunt.template.today('yyyy') %> <%= pkg.author %>. All rights reserved.\n"
+        banner += "* Licensed <%= _.pluck(pkg.licenses, 'type')[0] %> - <%= _.pluck(pkg.licenses, 'url')[0] %> */\n"
         banner
 
     paths:
       # Ref common paths so we can use built-in lodash templating.
-      coffee : "./public/coffee"
+      coffee : "./public/coffeescripts"
       tmp    : "./tmp"
       js     : "./public/javascripts"
 
@@ -36,10 +33,11 @@ module.exports = (grunt) ->
       app:
         src: [
           "<%= paths.coffee %>/app.coffee"
-          "<%= paths.coffee %>/app/controllers/*.coffee"
-          "<%= paths.coffee %>/app/directives/*.coffee"
-          "<%= paths.coffee %>/app/filters/*.coffee"
-          "<%= paths.coffee %>/app/services/*.coffee"
+          "<%= paths.coffee %>/controllers/MainAppCtrl.coffee"
+          "<%= paths.coffee %>/directives/fadeShow.coffee"
+          "<%= paths.coffee %>/directives/focusBlur.coffee"
+          "<%= paths.coffee %>/filters/startFrom.coffee"
+          # "<%= paths.coffee %>/services/*.coffee"
         ]
         dest: "<%= paths.tmp %>/app.coffee"
 
@@ -58,7 +56,7 @@ module.exports = (grunt) ->
         options:
           bare: false
         files:
-          "<%= paths.js %>/app.js": "<%= paths.tmp %>app.coffee"
+          "<%= paths.js %>/app.js": "<%= paths.tmp %>/app.coffee"
           "server.js": "server.coffee"
 
     watch:

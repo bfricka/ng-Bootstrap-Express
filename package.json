@@ -7,7 +7,7 @@
   "homepage": "",
   "contributors": [ "Brian Frichette <brian.frichette@gmail.com> (https://github.com/brian-frichette)" ],
   "bugs": { "url": "" },
-  "scripts": { "start": "nodemon app.js" },
+  "scripts": { "start": "nodemon server.js" },
   "dependencies": {
     "express": "3.x",
     "jade": "*",

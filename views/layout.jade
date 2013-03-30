@@ -1,0 +1,60 @@
+!!! 5
+//if lt IE 7
+  html.no-js.lt-ie9.lt-ie8.lt-ie7(lang='en')
+//if IE 7
+  html.no-js.lt-ie9.lt-ie8(lang='en')
+//if IE 8
+  html.no-js.lt-ie9(lang='en')
+//[if gt IE 8]><!
+html.no-js(lang='en')
+  //<![endif]
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+
+    title= title
+
+    meta(name='author', content='')
+    meta(name='description', content='')
+    meta(name='keywords', content='')
+    meta(name='viewport', content='width=device-width')
+    link(rel='shortcut icon', href='/images/favicon.ico')
+
+    link(rel='stylesheet', href="/stylesheets/style.css")
+
+    block topScripts
+      script(src='/javascripts/vendor/modernizr.js')
+
+      if env == 'production'
+        script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js")
+      else
+        script(src='/javascripts/vendor/jquery.js')
+        script(src='/javascripts/vendor/angular.js')
+
+      script(src='/javascripts/vendor/amplify.store.min.js')
+  body
+    //if lt IE 7
+      p.chromeframe
+        | You are using an outdated browser.
+        a(href='http://browsehappy.com/') Upgrade your browser today
+        | or
+        a(href='http://www.google.com/chromeframe/?redirect=true') install Google Chrome Frame
+        | to better experience this site.
+
+  div(ng-app='#{app}', ng-controller='#{app + "Ctrl"}')
+
+    block nav
+      include partials/nav
+
+    // Main container
+    div.container-fluid
+      block content
+      block footer
+        footer.page-footer: p | &copy; 2013 Company.
+
+    block bottomScripts
+      if env == 'production'
+        script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/1.0.1/lodash.min.js")
+      else
+        script(src="/javascripts/vendor/lodash.js")
