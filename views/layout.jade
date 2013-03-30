@@ -42,19 +42,21 @@ html.no-js(lang='en')
         a(href='http://www.google.com/chromeframe/?redirect=true') install Google Chrome Frame
         | to better experience this site.
 
-  div(ng-app='#{app}', ng-controller='#{app + "Ctrl"}')
+  div(ng-app='#{app}', ng-controller='#{ctrl}')
 
     block nav
       include partials/nav
 
     // Main container
-    div.container-fluid
+    div.container
       block content
       block footer
-        footer.page-footer: p | &copy; 2013 Company.
+        footer.page-footer: p &copy; 2013 Company.
 
     block bottomScripts
       if env == 'production'
         script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/1.0.1/lodash.min.js")
+        script(src="/javascripts/app.min.js")
       else
         script(src="/javascripts/vendor/lodash.js")
+        script(src="/javascripts/app.js")

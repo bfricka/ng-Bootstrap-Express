@@ -49,6 +49,7 @@ Begin Routes
 app.get '/', (req, res) ->
   opts =
     title: 'Project'
+    ctrl: 'MainAppCtrl'
     app: 'app'
 
   res.render 'home', opts

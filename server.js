@@ -59,6 +59,7 @@
 
     opts = {
       title: 'Project',
+      ctrl: 'MainAppCtrl',
       app: 'app'
     };
     return res.render('home', opts);
