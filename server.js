@@ -1,5 +1,5 @@
 (function() {
-  var app, express, http, less;
+  var app, express, http, less, setOptions, __;
 
   express = require('express');
 
@@ -7,9 +7,22 @@
 
   less = require('less-middleware');
 
+  __ = require('lodash');
+
   app = express();
 
   app.locals.env = app.get('env');
+
+  setOptions = function(opts) {
+    var defaults;
+
+    defaults = {
+      title: "My App",
+      ctrl: "MainAppCtrl",
+      app: "app"
+    };
+    return __.extend(defaults, opts);
+  };
 
   /*
   Begin config
@@ -35,10 +48,11 @@
       res.status(404);
       title = '404 Not Found';
       if (req.accepts('html')) {
-        return res.render("404", {
+        return res.render("404", setOptions({
           title: title,
-          app: ''
-        });
+          app: null,
+          ctrl: null
+        }));
       } else if (req.accepts('json')) {
         return res.send({
           error: title
@@ -57,11 +71,7 @@
   app.get('/', function(req, res) {
     var opts;
 
-    opts = {
-      title: 'Project',
-      ctrl: 'MainAppCtrl',
-      app: 'app'
-    };
+    opts = setOptions();
     return res.render('home', opts);
   });
 

@@ -1,9 +1,18 @@
 express = require 'express'
 http    = require 'http'
 less    = require 'less-middleware'
+__      = require 'lodash'
 app     = express()
 
 app.locals.env = app.get('env')
+
+setOptions = (opts) ->
+  defaults =
+    title: "My App"
+    ctrl: "MainAppCtrl"
+    app: "app"
+
+  __.extend defaults, opts
 
 ###
 Begin config
@@ -34,7 +43,7 @@ app.configure ->
     title = '404 Not Found'
 
     if req.accepts('html')
-      res.render "404", { title: title, app: '' }
+      res.render "404", setOptions { title: title, app: null, ctrl: null }
     else if req.accepts('json')
       res.send { error: title }
     else
@@ -47,11 +56,7 @@ Begin Routes
 ###
 
 app.get '/', (req, res) ->
-  opts =
-    title: 'Project'
-    ctrl: 'MainAppCtrl'
-    app: 'app'
-
+  opts = setOptions()
   res.render 'home', opts
 
 ###
