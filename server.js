@@ -1,28 +1,17 @@
 (function() {
-  var app, express, http, less, setOptions, __;
+  var app, express, http, less, routes;
 
   express = require('express');
+
+  routes = require('./routes');
 
   http = require('http');
 
   less = require('less-middleware');
 
-  __ = require('lodash');
-
   app = express();
 
   app.locals.env = app.get('env');
-
-  setOptions = function(opts) {
-    var defaults;
-
-    defaults = {
-      title: "My App",
-      ctrl: "MainAppCtrl",
-      app: "app"
-    };
-    return __.extend(defaults, opts);
-  };
 
   /*
   Begin config
@@ -42,25 +31,7 @@
       compress: true
     }));
     app.use(express["static"]("" + __dirname + "/public"));
-    app.use(function(req, res) {
-      var title;
-
-      res.status(404);
-      title = '404 Not Found';
-      if (req.accepts('html')) {
-        return res.render("404", setOptions({
-          title: title,
-          app: null,
-          ctrl: null
-        }));
-      } else if (req.accepts('json')) {
-        return res.send({
-          error: title
-        });
-      } else {
-        return res.type('txt').send(title);
-      }
-    });
+    app.use(routes.four_oh_four);
   });
 
   /*
@@ -68,12 +39,7 @@
   */
 
 
-  app.get('/', function(req, res) {
-    var opts;
-
-    opts = setOptions();
-    return res.render('home', opts);
-  });
+  app.get('/', routes.home);
 
   /*
   Init

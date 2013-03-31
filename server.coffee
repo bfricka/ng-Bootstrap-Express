@@ -1,18 +1,10 @@
 express = require 'express'
+routes  = require './routes'
 http    = require 'http'
 less    = require 'less-middleware'
-__      = require 'lodash'
 app     = express()
 
 app.locals.env = app.get('env')
-
-setOptions = (opts) ->
-  defaults =
-    title: "My App"
-    ctrl: "MainAppCtrl"
-    app: "app"
-
-  __.extend defaults, opts
 
 ###
 Begin config
@@ -37,17 +29,7 @@ app.configure ->
   app.use express.static("#{__dirname}/public")
 
   # Fall-through 404
-  app.use (req, res) ->
-    res.status(404)
-
-    title = '404 Not Found'
-
-    if req.accepts('html')
-      res.render "404", setOptions { title: title, app: null, ctrl: null }
-    else if req.accepts('json')
-      res.send { error: title }
-    else
-      res.type('txt').send title
+  app.use routes.four_oh_four
 
   return
 
@@ -55,9 +37,7 @@ app.configure ->
 Begin Routes
 ###
 
-app.get '/', (req, res) ->
-  opts = setOptions()
-  res.render 'home', opts
+app.get '/', routes.home
 
 ###
 Init

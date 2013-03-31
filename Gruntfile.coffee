@@ -23,6 +23,7 @@ module.exports = (grunt) ->
 
     paths:
       # Ref common paths so we can use built-in lodash templating.
+      routes : "./routes"
       coffee : "./public/coffeescripts"
       tmp    : "./tmp"
       js     : "./public/javascripts"
@@ -32,6 +33,7 @@ module.exports = (grunt) ->
       # SEAF, since coffee-contrib doesn't have this option.
       app:
         src: [
+          "<%= paths.coffee %>/Stor.coffee"
           "<%= paths.coffee %>/app.coffee"
           "<%= paths.coffee %>/controllers/MainAppCtrl.coffee"
           "<%= paths.coffee %>/directives/fadeShow.coffee"
@@ -56,13 +58,15 @@ module.exports = (grunt) ->
         options:
           bare: false
         files:
+          "<%= paths.routes %>/index.js": "<%= paths.routes %>/index.coffee"
           "<%= paths.js %>/app.js": "<%= paths.tmp %>/app.coffee"
           "server.js": "server.coffee"
 
     watch:
       coffee:
         files: [
-          "<%= paths.coffee %>**/*.coffee"
+          "<%= paths.coffee %>/**/*.coffee"
+          "<%= paths.routes %>/index.coffee"
           "server.coffee"
         ]
         tasks: [ "concat:app", "coffee" ]
@@ -99,6 +103,7 @@ module.exports = (grunt) ->
 
           mangle:
             except: [
+              "Stor"
               "angular"
               "amplify"
               "jQuery"
