@@ -11,7 +11,7 @@ class Stor
   get: (key = @key) ->
     @amp(key)
   set: (val, key = @key, exp = @exp) ->
-    @amp(key, val, exp)
+    @amp(key, val, { expiration: exp })
   remove: (key = @key) ->
     @amp(key, null)
   empty: ->
