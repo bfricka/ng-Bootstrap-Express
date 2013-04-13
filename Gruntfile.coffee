@@ -23,6 +23,7 @@ module.exports = (grunt) ->
 
     paths:
       # Ref common paths so we can use built-in lodash templating.
+      express: "./express"
       routes : "./routes"
       coffee : "./public/coffeescripts"
       tmp    : "./tmp"
@@ -39,7 +40,6 @@ module.exports = (grunt) ->
           "<%= paths.coffee %>/directives/fadeShow.coffee"
           "<%= paths.coffee %>/directives/focusBlur.coffee"
           "<%= paths.coffee %>/filters/startFrom.coffee"
-          # "<%= paths.coffee %>/services/*.coffee"
         ]
         dest: "<%= paths.tmp %>/app.coffee"
 
@@ -60,14 +60,16 @@ module.exports = (grunt) ->
         files:
           "<%= paths.routes %>/index.js": "<%= paths.routes %>/index.coffee"
           "<%= paths.js %>/app.js": "<%= paths.tmp %>/app.coffee"
-          "server.js": "server.coffee"
+          "<%= paths.express %>/page-info.js": "<%= paths.express %>/page-info.coffee"
+          "server.js": "<%= paths.express %>/server.coffee"
 
     watch:
       coffee:
         files: [
           "<%= paths.coffee %>/**/*.coffee"
           "<%= paths.routes %>/index.coffee"
-          "server.coffee"
+          "<%= paths.express %>/server.coffee"
+          "<%= paths.express %>/page-info.coffee"
         ]
         tasks: [ "concat:app", "coffee" ]
 

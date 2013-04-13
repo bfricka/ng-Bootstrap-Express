@@ -14,9 +14,9 @@ html.no-js(lang='en')
 
     title= title
 
-    meta(name='author', content='')
-    meta(name='description', content='')
-    meta(name='keywords', content='')
+    meta(name='author', content='#{meta.author}')
+    meta(name='description', content='#{meta.description}')
+    meta(name='keywords', content='#{meta.keywords}')
     meta(name='viewport', content='width=device-width')
     link(rel='shortcut icon', href='/images/favicon.png')
 
@@ -33,7 +33,7 @@ html.no-js(lang='en')
         | or
         a(href='http://www.google.com/chromeframe/?redirect=true') install Google Chrome Frame
         | to better experience this site.
-    if app
+    if app != null
       div(ng-app='#{app}', ng-controller='#{ctrl}')
         include partials/body
     else

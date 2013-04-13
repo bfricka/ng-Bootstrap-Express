@@ -1,27 +1,25 @@
 __ = require 'lodash'
+p = require '../express/page-info'
 
 setOptions = (opts) ->
-  defaults =
-    title: "My App"
-    ctrl: "MainAppCtrl"
-    app: "app"
+  defaults = p.defaults
 
   __.extend defaults, opts
 
 exports.four_oh_four = (req, res) ->
   res.status 404
 
-  title = '404 Not Found'
+  opts = setOptions p.info['four_oh_four']
 
   if req.accepts('html')
-    res.render '404', setOptions { title: title, app: null, ctrl: null }
+    res.render '404', opts
   else if req.accepts('json')
-    res.send { error: title }
+    res.send { error: opts.title }
   else
-    res.type('txt').send title
+    res.type('txt').send opts.title
 
   return
 
 exports.home = (req, res) ->
-  opts = setOptions()
+  opts = setOptions p.info.home
   res.render 'home', opts

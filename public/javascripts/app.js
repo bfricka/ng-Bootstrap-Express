@@ -1,6 +1,3 @@
-/*  - v0.0.1 - 
-* Copyright (c) 2013 Brian Frichette. All rights reserved.
-* Licensed MIT - http://opensource.org/licenses/MIT */
 (function() {
   var Stor, app;
 
