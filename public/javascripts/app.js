@@ -22,7 +22,9 @@
       if (exp == null) {
         exp = this.exp;
       }
-      return this.amp(key, val, exp);
+      return this.amp(key, val, {
+        expiration: exp
+      });
     };
 
     Stor.prototype.remove = function(key) {
@@ -97,6 +99,15 @@
       return elem.on("focus", function() {
         scope.$apply(attrs.ngFocus);
       });
+    };
+  });
+
+  app.filter('startFrom', function() {
+    return function(input, start) {
+      if ((input != null) && (start != null) && typeof start === 'number') {
+        start = +start;
+        return input.slice(start);
+      }
     };
   });
 
