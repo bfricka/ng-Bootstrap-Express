@@ -136,7 +136,7 @@ $scope.perPage = 6
 *Sample Markup:*
 ```xml
 <ul>
-  <li ng-repeat="item in items" ng-filter="startFrom: currentPage"></li>
+  <li ng-repeat="item in items" ng-filter="startFrom: currentPage | limitTo: perPage"></li>
 </ul>
 <footer class="pagination">
   <button class="btn" ng-click="prev()" ng-disabled="currentPage == 0">&laquo;</button>
