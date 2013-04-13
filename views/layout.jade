@@ -25,14 +25,6 @@ html.no-js(lang='en')
     block topScripts
       script(src='/javascripts/vendor/modernizr.js')
 
-      if env == 'production'
-        script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
-        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js")
-      else
-        script(src='/javascripts/vendor/jquery.js')
-        script(src='/javascripts/vendor/angular.js')
-
-      script(src='/javascripts/vendor/amplify.store.min.js')
   body
     //if lt IE 7
       p.chromeframe
@@ -41,22 +33,22 @@ html.no-js(lang='en')
         | or
         a(href='http://www.google.com/chromeframe/?redirect=true') install Google Chrome Frame
         | to better experience this site.
-
-  div(ng-app='#{app}', ng-controller='#{ctrl}')
-
-    block nav
-      include partials/nav
-
-    // Main container
-    div.container
-      block content
-      block footer
-        footer.page-footer: p &copy; 2013 Company.
+    if app
+      div(ng-app='#{app}', ng-controller='#{ctrl}')
+        include partials/body
+    else
+      include partials/body
 
     block bottomScripts
       if env == 'production'
+        script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js")
         script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/1.0.1/lodash.min.js")
         script(src="/javascripts/app.min.js")
       else
+        script(src='/javascripts/vendor/jquery.js')
+        script(src='/javascripts/vendor/angular.js')
         script(src="/javascripts/vendor/lodash.js")
         script(src="/javascripts/app.js")
+
+      script(src='/javascripts/vendor/amplify.store.min.js')
